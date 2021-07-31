@@ -11,11 +11,11 @@ setuptools.setup(
     description='Django model to Gorm struct conversion tool',
     long_description=long_description,
     long_description_content_type="text/markdown",
+    packages=setuptools.find_packages(),
     url='https://github.com/ranedk/djangorm',
     project_urls = {
         "Bug Tracker": "https://github.com/ranedk/djangorm/issues"
     },
     license='MIT',
-    packages=['djangorm'],
     install_requires=[],
 )
