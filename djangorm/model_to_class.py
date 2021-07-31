@@ -1,13 +1,13 @@
-from d2g.lib.data import (
+from .lib.data import (
     BasicField, M2MField, M2OField,
     O2OField, O2MField, D2GField
 )
-from d2g.lib.cleaner import (
+from .lib.cleaner import (
     get_java_field_name, get_field_validation, get_field_generator,
     get_field_type, get_models,
     is_field_reversed
 )
-from d2g.lib.render import render_go, render_java
+from .lib.render import render_go, render_java
 
 
 def get_struct_structure(app_name, model):
