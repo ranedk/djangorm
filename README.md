@@ -1,5 +1,6 @@
 # Django Model to Gorm Struct
 
+Install using: `pip install git+https://github.com/ranedk/djangorm`
 Tool converts django models to Gorm struct
 
 ## Usage

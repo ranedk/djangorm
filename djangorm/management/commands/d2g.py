@@ -1,6 +1,6 @@
 import argparse
 from django.core.management.base import BaseCommand, CommandError
-from d2g.model_to_class import convert_models
+from djangorm.model_to_class import convert_models
 
 
 class Command(BaseCommand):
