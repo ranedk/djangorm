@@ -62,7 +62,7 @@ def render_go(struct) -> str:
             go_code_fields.append(fk_field)
 
         if go_field == D2GField.ForeignKey:
-            vtype = vtype % {'foreign_model': field.related_model._meta.model_name.title()}
+            vtype = vtype % {'foreign_model': field.related_model._meta.object_name}
             orm_tags[0] = orm_tags[0] % {'foreign_model_id': get_go_field_name(field.column)}
             delete_behavior = field.deconstruct()[3]['on_delete'].__name__.replace("_", " ")
             orm_tags.append("constraint:OnDelete:%s" % delete_behavior)
