@@ -103,9 +103,10 @@ def render_go(struct) -> str:
         else:
             vvalid_tags = ""
 
-        all_tags = "`%s`" % " ".join([vorm_tags, vvalid_tags])
+        all_tags = "`%s`" % " ".join([i for i in [vorm_tags, vvalid_tags] if i])
 
-        field_verbose = '{:20s} {:25s} {:20s} '.format(vname, vtype, all_tags)
+        field_verbose = '{:25s} {:12s} {:1s}'.format(vname, vtype, all_tags)
+
         # print(field_verbose)
         go_code_fields.append(field_verbose)
 
