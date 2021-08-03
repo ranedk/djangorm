@@ -10,6 +10,15 @@ Put `djangorm` in INSTALLED_APPS
 Then run `python manage.py d2g --apps=<app-name> --lang=go`
 Currently supports `go` and `java`
 
+You can remove validation tags by using:
+`python manage.py d2g --apps=<app-name> --lang=go --valid`
+
+You can remove gorm tags by using:
+`python manage.py d2g --apps=<app-name> --lang=go --orm`
+
+You can remove gorm and validation by using:
+`python manage.py d2g --apps=<app-name> --lang=go --orm --valid`
+
 e.g.
 
 sampleproject/sampleapp/models.py

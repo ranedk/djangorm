@@ -96,9 +96,9 @@ def get_class_structure(app_name, model):
     }
 
 
-def convert_models(apps, lang):
+def convert_models(apps, lang, for_orm=True, for_validation=True):
     if lang == "go":
-        convert_models_to_gorm(apps)
+        convert_models_to_gorm(apps, for_orm, for_validation)
     if lang == "java":
         convert_models_to_java(apps)
 
@@ -115,7 +115,7 @@ def convert_models_to_java(apps):
         print(render_java(class_structure))
 
 
-def convert_models_to_gorm(apps):
+def convert_models_to_gorm(apps, for_orm=True, for_validation=True):
     """
     Function to convert Django models into kotlin classes.
     :param apps: Apps for which the models are to be converted to kotlin classes
@@ -127,5 +127,5 @@ def convert_models_to_gorm(apps):
         struct = get_struct_structure(app, model)
         # import pprint
         # pprint.pprint(struct)
-        code += render_go(struct)
+        code += render_go(struct, for_orm, for_validation)
     print(code)

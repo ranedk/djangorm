@@ -12,7 +12,7 @@ class Field:
     valid: List[str]
 
 
-def render_go(struct) -> str:
+def render_go(struct, for_orm=True, for_validation=True) -> str:
     class_name = struct["class_name"]
     table = struct["model"]._meta.db_table
     go_code_fields = []
@@ -66,13 +66,14 @@ def render_go(struct) -> str:
             orm_tags[0] = orm_tags[0] % {'foreign_model_id': get_go_field_name(field.column)}
             delete_behavior = field.deconstruct()[3]['on_delete'].__name__.replace("_", " ")
             orm_tags.append("constraint:OnDelete:%s" % delete_behavior)
-            fk_field = '{:20s} {:25s} {:20s} '.format(
-                get_go_field_name(field.column),
-                "uint32",
-                '`gorm:"index"`'
-            )
-            # print(fk_field)
-            go_code_fields.append(fk_field)
+            if for_orm:
+                fk_field = '{:20s} {:25s} {:20s} '.format(
+                    get_go_field_name(field.column),
+                    "uint32",
+                    '`gorm:"index"`'
+                )
+                # print(fk_field)
+                go_code_fields.append(fk_field)
 
         if go_field == D2GField.CharField:
             orm_tags[0] = orm_tags[0] % {'max_length': field.max_length}
@@ -93,17 +94,20 @@ def render_go(struct) -> str:
         if getattr(field, 'blank', None) and not field.blank:
             valid_tags.append("required")
 
-        if orm_tags:
+        if orm_tags and for_orm:
             vorm_tags = 'gorm:"%s"' % ";".join(orm_tags)
         else:
             vorm_tags = ""
 
-        if valid_tags:
+        if valid_tags and for_validation:
             vvalid_tags = 'validate:"%s"' % ";".join(valid_tags)
         else:
             vvalid_tags = ""
 
-        all_tags = "`%s`" % " ".join([i for i in [vorm_tags, vvalid_tags] if i])
+        if vorm_tags or vvalid_tags:
+            all_tags = "`%s`" % " ".join([i for i in [vorm_tags, vvalid_tags] if i])
+        else:
+            all_tags = ""
 
         field_verbose = '{:25s} {:12s} {:1s}'.format(vname, vtype, all_tags)
 
